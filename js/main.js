@@ -30,5 +30,5 @@ const getRandomFloatNumber = ({ min, max }, numberOfSigns = 2) => {
   return +(Math.random() * (max - min) + min).toFixed(numberOfSigns);
 };
 
-getRandomIntNumber(-1.1, 3.09);
-getRandomFloatNumber(3.01, 4.56, 2);
+getRandomIntNumber({ min: -1.1, max: 3.09 });
+getRandomFloatNumber({ min: 3.01, max: 4.56 }, 2);
