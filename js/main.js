@@ -1,25 +1,22 @@
-const getRandomIntNumber = function (min, max) {
+const getRandomIntNumber = ({ min, max }) => {
   if (max < min) {
-    return 'Ошибка: задан отрицательный диапазон';
+    throw new Error('задан отрицательный диапазон');
   }
 
-  const roundedMin = Math.ceil(min);
-  const roundedMax = Math.floor(max);
-
-  if (roundedMin > roundedMax) {
-    return 'В указанном диапазоне нет целых чисел';
+  if (Math.round(min) !== min || Math.round(max) !== max) {
+    throw new Error('одно из переданных чисел(или оба) нецелое');
   }
 
-  if (roundedMax === roundedMin) {
-    return roundedMin;
+  if (max === min) {
+    return min;
   }
 
-  return Math.round(Math.random() * (roundedMax - roundedMin) + roundedMin);
+  return Math.round(Math.random() * (max - min) + min);
 };
 
-const getRandomFloatNumber = function (min, max, numberOfSigns) {
+const getRandomFloatNumber = ({ min, max }, numberOfSigns = 2) => {
   if (max - min < 0) {
-    return 'Ошибка: задан отрицательный диапазон';
+    throw new Error('задан отрицательный диапазон');
   }
 
   if (max === min) {
@@ -27,7 +24,7 @@ const getRandomFloatNumber = function (min, max, numberOfSigns) {
   }
 
   if (numberOfSigns < 0 || numberOfSigns > 100) {
-    return 'Ошибка: задано количество знаков после запятой меньше 0 или больше 100';
+    throw new Error('задано количество знаков после запятой меньше 0 или больше 100');
   }
 
   return +(Math.random() * (max - min) + min).toFixed(numberOfSigns);
