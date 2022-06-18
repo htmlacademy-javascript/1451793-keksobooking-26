@@ -1,34 +1,19 @@
-const getRandomIntNumber = ({ min, max }) => {
-  if (max < min) {
-    throw new Error('задан отрицательный диапазон');
-  }
+function getRandomPositiveInteger(a, b) {
+  const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
+  const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
 
-  if (Math.round(min) !== min || Math.round(max) !== max) {
-    throw new Error('одно из переданных чисел(или оба) нецелое');
-  }
+  const result = Math.random() * (upper - lower + 1) + lower;
 
-  if (max === min) {
-    return min;
-  }
+  return Math.floor(result);
+}
 
-  return Math.round(Math.random() * (max - min) + min);
-};
+function getRandomPositiveFloat(a, b, digits = 1) {
+  const lower = Math.min(Math.abs(a), Math.abs(b));
+  const upper = Math.max(Math.abs(a), Math.abs(b));
 
-const getRandomFloatNumber = ({ min, max }, numberOfSigns = 2) => {
-  if (max - min < 0) {
-    throw new Error('задан отрицательный диапазон');
-  }
+  const result = Math.random() * (upper - lower) + lower;
 
-  if (max === min) {
-    return min;
-  }
+  return +result.toFixed(digits);
+}
 
-  if (numberOfSigns < 0 || numberOfSigns > 100) {
-    throw new Error('задано количество знаков после запятой меньше 0 или больше 100');
-  }
-
-  return +(Math.random() * (max - min) + min).toFixed(numberOfSigns);
-};
-
-getRandomIntNumber({ min: -1.1, max: 3.09 });
-getRandomFloatNumber({ min: 3.01, max: 4.56 }, 2);
+export { getRandomPositiveInteger, getRandomPositiveFloat };
