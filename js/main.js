@@ -1,3 +1,6 @@
-import { createOffers } from './data.js';
+import { offers } from './data.js';
+import { renderCard } from './render-card.js';
 
-createOffers();
+const testCard = offers[0];
+
+renderCard(testCard);

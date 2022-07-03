@@ -85,4 +85,6 @@ function createOffer(id, location) {
 const createOffers = () =>
   Array.from({ length: OFFERS_COUNT }, (current, index) => createOffer(index, getRandomLocation()));
 
-export { createOffers };
+const offers = createOffers();
+
+export { offers };
