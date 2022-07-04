@@ -1,3 +1,4 @@
+import { Room } from './Room.js';
 import { OFFER_TYPES_RUSSIAN } from './constants.js';
 
 const mapCanvas = document.querySelector('#map-canvas');
@@ -14,26 +15,18 @@ function renderCard(data) {
 
   const price = card.querySelector('.popup__text--price');
   const measureUnit = price.querySelector('span');
-  price.textContent = `${data.offer.price || '[нет данных]'} ${measureUnit.textContent}`;
+  price.textContent = data.offer.price
+    ? `${data.offer.price} ${measureUnit.textContent}`
+    : '[стоимость неизвестна]';
 
   const type = card.querySelector('.popup__type');
   type.textContent = OFFER_TYPES_RUSSIAN[data.offer.type] || 'Тип жилища неизвестен';
 
   const capacity = card.querySelector('.popup__text--capacity');
-  let roomsText = '';
-  const guestsText = data.offer.guests < 1 ? 'гостя' : 'гостей';
-  switch (data.offer.rooms % 10) {
-    case 1:
-      roomsText = 'комната';
-      break;
-    case 2:
-    case 3:
-    case 4:
-      roomsText = 'комнаты';
-      break;
-    default:
-      roomsText = 'комнат';
-  }
+  const room = new Room();
+  const roomsText = room.format(data.offer.rooms);
+  const guestsText = data.offer.guests === 1 ? 'гостя' : 'гостей';
+
   capacity.textContent = `${data.offer.rooms || '[неизвестное количество]'} ${roomsText} для ${
     data.offer.guests || '[неизвестного количества]'
   } ${guestsText}`;
