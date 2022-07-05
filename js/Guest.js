@@ -1,24 +1,24 @@
-class Room {
+class Guest {
   static getPlural(n) {
     return new Intl.PluralRules('ru-RU').select(n);
   }
 
   static format(n) {
-    switch (Room.getPlural(n)) {
+    switch (Guest.getPlural(n)) {
       case 'one': {
-        return 'комната';
+        return 'гостя';
       }
       case 'few': {
-        return 'комнаты';
+        return 'гостей';
       }
       case 'many': {
-        return 'комнат';
+        return 'гостей';
       }
       default: {
-        return 'комнат';
+        return 'гостей';
       }
     }
   }
 }
 
-export { Room };
+export { Guest };
