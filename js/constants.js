@@ -9,6 +9,13 @@ const LONGITUDE = {
   MAX: 139.8,
 };
 const OFFER_TYPES = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
+const OFFER_TYPES_RUSSIAN = {
+  palace: 'Дворец',
+  flat: 'Квартира',
+  house: 'Дом',
+  bungalow: 'Бунгало',
+  hotel: 'Отель',
+};
 
 const TIME = {
   CHECKIN: ['12:00', '13:00', '14:00'],
@@ -22,4 +29,13 @@ const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
 
-export { OFFERS_COUNT, LATITUDE, LONGITUDE, OFFER_TYPES, TIME, FEATURES, PHOTOS };
+export {
+  OFFERS_COUNT,
+  LATITUDE,
+  LONGITUDE,
+  OFFER_TYPES,
+  TIME,
+  FEATURES,
+  PHOTOS,
+  OFFER_TYPES_RUSSIAN,
+};
