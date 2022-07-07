@@ -29,6 +29,15 @@ const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
 
+const Attribute = {
+  DISABLED: 'disabled',
+};
+
+const Boolean = {
+  TRUE: 'true',
+  FALSE: 'false',
+};
+
 export {
   OFFERS_COUNT,
   LATITUDE,
@@ -38,4 +47,6 @@ export {
   FEATURES,
   PHOTOS,
   OFFER_TYPES_RUSSIAN,
+  Attribute,
+  Boolean,
 };
