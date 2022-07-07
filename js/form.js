@@ -1,84 +1,74 @@
+import { Attribute, Boolean } from './constants.js';
+
 const adForm = document.querySelector('.ad-form');
 
-const avatar = adForm.querySelector('#avatar');
-const title = adForm.querySelector('#title');
-const address = adForm.querySelector('#address');
-const type = adForm.querySelector('#type');
-const price = adForm.querySelector('#price');
-const timein = adForm.querySelector('#timein');
-const timeout = adForm.querySelector('#timeout');
-const roomNumber = adForm.querySelector('#room_number');
-const capacity = adForm.querySelector('#capacity');
-const features = adForm.querySelector('.features');
-const description = adForm.querySelector('#description');
-const images = adForm.querySelector('#images');
-const submitButton = adForm.querySelector('.ad-form__submit');
-const resetButton = adForm.querySelector('.ad-form__reset');
+const filterAdFormNodes = {
+  avatar: adForm.querySelector('#avatar'),
+  title: adForm.querySelector('#title'),
+  address: adForm.querySelector('#address'),
+  type: adForm.querySelector('#type'),
+  price: adForm.querySelector('#price'),
+  timein: adForm.querySelector('#timein'),
+  timeout: adForm.querySelector('#timeout'),
+  roomNumber: adForm.querySelector('#room_number'),
+  capacity: adForm.querySelector('#capacity'),
+  features: adForm.querySelector('.features'),
+  description: adForm.querySelector('#description'),
+  images: adForm.querySelector('#images'),
+  submitButton: adForm.querySelector('.ad-form__submit'),
+  resetButton: adForm.querySelector('.ad-form__reset'),
+};
 
 const mapFilters = document.querySelector('.map__filters');
 
-const housingType = mapFilters.querySelector('#housing-type');
-const housingPrice = mapFilters.querySelector('#housing-price');
-const housingRooms = mapFilters.querySelector('#housing-rooms');
-const housingGuests = mapFilters.querySelector('#housing-guests');
-const housingFeatures = mapFilters.querySelector('#housing-features');
+const filterMapFiltersNodes = {
+  type: mapFilters.querySelector('#housing-type'),
+  price: mapFilters.querySelector('#housing-price'),
+  rooms: mapFilters.querySelector('#housing-rooms'),
+  guests: mapFilters.querySelector('#housing-guests'),
+  features: mapFilters.querySelector('#housing-features'),
+};
+
+function setAttributeNodes(nodes, attribute) {
+  const keys = Object.keys(nodes);
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i];
+    const node = nodes[key];
+    node.setAttribute(attribute.name, attribute.value);
+  }
+}
+
+function removeAttributeNodes(nodes, attribute) {
+  const keys = Object.keys(nodes);
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i];
+    const node = nodes[key];
+    node.removeAttribute(attribute.name);
+  }
+}
 
 function deactivateMapFiltersForm() {
   mapFilters.classList.add('map__filters--disabled');
 
-  housingType.setAttribute('disabled', 'true');
-  housingPrice.setAttribute('disabled', 'true');
-  housingRooms.setAttribute('disabled', 'true');
-  housingGuests.setAttribute('disabled', 'true');
-  housingFeatures.setAttribute('disabled', 'true');
+  setAttributeNodes(filterMapFiltersNodes, { name: Attribute.DISABLED, value: Boolean.TRUE });
 }
 
 function deactivateAdForm() {
   adForm.classList.add('ad-form--disabled');
 
-  avatar.setAttribute('disabled', 'true');
-  title.setAttribute('disabled', 'true');
-  address.setAttribute('disabled', 'true');
-  type.setAttribute('disabled', 'true');
-  price.setAttribute('disabled', 'true');
-  timein.setAttribute('disabled', 'true');
-  timeout.setAttribute('disabled', 'true');
-  roomNumber.setAttribute('disabled', 'true');
-  capacity.setAttribute('disabled', 'true');
-  features.setAttribute('disabled', 'true');
-  description.setAttribute('disabled', 'true');
-  images.setAttribute('disabled', 'true');
-  submitButton.setAttribute('disabled', 'true');
-  resetButton.setAttribute('disabled', 'true');
+  setAttributeNodes(filterAdFormNodes, { name: Attribute.DISABLED, value: Boolean.TRUE });
 }
 
 function activateMapFiltersForm() {
   mapFilters.classList.remove('map__filters--disabled');
 
-  housingType.removeAttribute('disabled');
-  housingPrice.removeAttribute('disabled');
-  housingRooms.removeAttribute('disabled');
-  housingGuests.removeAttribute('disabled');
-  housingFeatures.removeAttribute('disabled');
+  removeAttributeNodes(filterMapFiltersNodes, { name: Attribute.DISABLED });
 }
 
 function activateAdForm() {
   adForm.classList.remove('ad-form--disabled');
 
-  avatar.removeAttribute('disabled');
-  title.removeAttribute('disabled');
-  address.removeAttribute('disabled');
-  type.removeAttribute('disabled');
-  price.removeAttribute('disabled');
-  timein.removeAttribute('disabled');
-  timeout.removeAttribute('disabled');
-  roomNumber.removeAttribute('disabled');
-  capacity.removeAttribute('disabled');
-  features.removeAttribute('disabled');
-  description.removeAttribute('disabled');
-  images.removeAttribute('disabled');
-  submitButton.removeAttribute('disabled');
-  resetButton.removeAttribute('disabled');
+  removeAttributeNodes(filterAdFormNodes, { name: Attribute.DISABLED });
 }
 
 function deactivateForms() {
