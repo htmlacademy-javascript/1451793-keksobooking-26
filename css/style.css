@@ -1000,6 +1000,10 @@ fieldset {
   border-radius: 8px;
 }
 
+.error__text {
+  color: red;
+}
+
 .error__button:hover,
 .error__button:focus {
   opacity: 0.8;
