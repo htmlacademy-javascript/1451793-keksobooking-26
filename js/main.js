@@ -1,12 +1,8 @@
-import { offers } from './data.js';
-import { renderCard } from './render-card.js';
-import { deactivateForms, activateForms } from './form.js';
+import { deactivateForms } from './form.js';
+import { renderMap } from './render-map.js';
 import './validate-form.js';
-
-const testCard = offers[0];
-
-renderCard(testCard);
+import './price-slider.js';
 
 deactivateForms();
 
-activateForms();
+renderMap();

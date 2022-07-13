@@ -20,4 +20,13 @@ function getRandomArrayElement(elements) {
   return elements[getRandomPositiveInteger(0, elements.length - 1)];
 }
 
-export { getRandomPositiveInteger, getRandomPositiveFloat, getRandomArrayElement };
+function formatCoordinates(objectCoordinates, digits = 5) {
+  return `${objectCoordinates.lat.toFixed(digits)}, ${objectCoordinates.lng.toFixed(digits)}`;
+}
+
+export {
+  getRandomPositiveInteger,
+  getRandomPositiveFloat,
+  getRandomArrayElement,
+  formatCoordinates,
+};
