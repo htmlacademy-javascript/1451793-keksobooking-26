@@ -38,6 +38,22 @@ const Boolean = {
   FALSE: 'false',
 };
 
+const CITY_CENTER_TOKYO = {
+  lat: 35.6805,
+  lng: 139.75356,
+};
+
+const HOUSING_PRICE = {
+  min: {
+    bungalow: 0,
+    flat: 1000,
+    hotel: 3000,
+    house: 5000,
+    palace: 10000,
+  },
+  max: 100000,
+};
+
 export {
   OFFERS_COUNT,
   LATITUDE,
@@ -49,4 +65,6 @@ export {
   OFFER_TYPES_RUSSIAN,
   Attribute,
   Boolean,
+  CITY_CENTER_TOKYO,
+  HOUSING_PRICE,
 };

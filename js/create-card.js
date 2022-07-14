@@ -2,46 +2,45 @@ import { Room } from './Room.js';
 import { Guest } from './Guest.js';
 import { OFFER_TYPES_RUSSIAN } from './constants.js';
 
-const mapCanvas = document.querySelector('#map-canvas');
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 
-function renderCard(data) {
+function createCard({ offer, author }) {
   const card = cardTemplate.cloneNode(true);
 
   const title = card.querySelector('.popup__title');
-  title.textContent = data.offer.title || 'Нет данных';
+  title.textContent = offer.title || 'Нет данных';
 
   const address = card.querySelector('.popup__text--address');
-  address.textContent = data.offer.address || 'Нет данных';
+  address.textContent = offer.address || 'Нет данных';
 
   const price = card.querySelector('.popup__text--price');
   const measureUnit = price.querySelector('span');
-  price.textContent = data.offer.price
-    ? `${data.offer.price} ${measureUnit.textContent}`
+  price.textContent = offer.price
+    ? `${offer.price} ${measureUnit.textContent}`
     : '[стоимость неизвестна]';
 
   const type = card.querySelector('.popup__type');
-  type.textContent = OFFER_TYPES_RUSSIAN[data.offer.type] || 'Тип жилища неизвестен';
+  type.textContent = OFFER_TYPES_RUSSIAN[offer.type] || 'Тип жилища неизвестен';
 
   const capacity = card.querySelector('.popup__text--capacity');
-  const roomsText = Room.format(data.offer.rooms);
-  const guestsText = Guest.format(data.offer.guests);
+  const roomsText = Room.format(offer.rooms);
+  const guestsText = Guest.format(offer.guests);
 
-  capacity.textContent = `${data.offer.rooms || '[неизвестное количество]'} ${roomsText} для ${
-    data.offer.guests || '[неизвестного количества]'
+  capacity.textContent = `${offer.rooms || '[неизвестное количество]'} ${roomsText} для ${
+    offer.guests || '[неизвестного количества]'
   } ${guestsText}`;
 
   const time = card.querySelector('.popup__text--time');
-  time.textContent = `Заезд после ${data.offer.checkin || '[нет данных]'}, выезд до ${
-    data.offer.checkout || '[нет данных]'
+  time.textContent = `Заезд после ${offer.checkin || '[нет данных]'}, выезд до ${
+    offer.checkout || '[нет данных]'
   }`;
 
   const featuresContainer = card.querySelector('.popup__features');
 
   const featuresList = featuresContainer.querySelectorAll('.popup__feature');
-  if (data.offer.features) {
+  if (offer.features) {
     featuresList.forEach((feature) => {
-      const isNecessary = data.offer.features.some((offerFeature) =>
+      const isNecessary = offer.features.some((offerFeature) =>
         feature.classList.contains(`popup__feature--${offerFeature}`),
       );
       if (!isNecessary) {
@@ -53,25 +52,24 @@ function renderCard(data) {
   }
 
   const description = card.querySelector('.popup__description');
-  description.textContent = data.offer.description || 'Описание недоступно';
+  description.textContent = offer.description || 'Описание недоступно';
 
   const photos = card.querySelector('.popup__photos');
 
   const photoTemplate = photos.querySelector('.popup__photo');
-  if (data.offer.photos) {
-    photoTemplate.src = data.offer.photos[0];
+  if (offer.photos) {
+    photoTemplate.src = offer.photos[0];
 
-    for (let i = 1; i < data.offer.photos.length; i++) {
+    for (let i = 1; i < offer.photos.length; i++) {
       const photo = photoTemplate.cloneNode(true);
-      photo.src = data.offer.photos[i];
+      photo.src = offer.photos[i];
       photos.appendChild(photo);
     }
   }
-
   const avatar = card.querySelector('.popup__avatar');
-  avatar.src = data.author.avatar;
+  avatar.src = author.avatar;
 
-  mapCanvas.appendChild(card);
+  return card;
 }
 
-export { renderCard };
+export { createCard };
