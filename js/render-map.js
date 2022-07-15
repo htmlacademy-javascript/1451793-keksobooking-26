@@ -1,8 +1,8 @@
 import { activateForms } from './form.js';
 import { CITY_CENTER_TOKYO } from './constants.js';
 import { formatCoordinates } from './utils.js';
-import { offers } from './data.js';
 import { createCard } from './create-card.js';
+import { getSimilarOffers } from './api.js';
 
 function renderMap() {
   const address = document.querySelector('#address');
@@ -38,9 +38,11 @@ function renderMap() {
     iconAnchor: [20, 40],
   });
 
-  offers.forEach(({ location, offer, author }) => {
-    const marker = L.marker({ lat: location.lat, lng: location.lng }, { icon: pinIcon });
-    marker.addTo(map).bindPopup(createCard({ offer, author }));
+  getSimilarOffers().then((offers) => {
+    offers.forEach(({ location, offer, author }) => {
+      const marker = L.marker({ lat: location.lat, lng: location.lng }, { icon: pinIcon });
+      marker.addTo(map).bindPopup(createCard({ offer, author }));
+    });
   });
 }
 
