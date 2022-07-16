@@ -13,4 +13,8 @@ function getSimilarOffers() {
     .catch((err) => console.log(err));
 }
 
-export { getSimilarOffers };
+function sendFormData(formData) {
+  return fetch(`${SERVER_URL}`, { method: 'POST', body: formData });
+}
+
+export { getSimilarOffers, sendFormData };

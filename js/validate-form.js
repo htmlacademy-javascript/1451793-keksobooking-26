@@ -1,4 +1,5 @@
 import { HOUSING_PRICE } from './constants.js';
+import { sendFormData } from './api.js';
 
 const adForm = document.querySelector('.ad-form');
 
@@ -77,7 +78,8 @@ adForm.addEventListener('submit', (evt) => {
 
   const isValid = pristine.validate();
   if (isValid) {
-    adForm.submit();
+    const formData = new FormData(evt.target);
+    sendFormData(formData);
   }
 });
 
