@@ -36,7 +36,7 @@ const filterMapFiltersNodes = {
   features: mapFilters.querySelector('#housing-features'),
 };
 
-const setAttributeNodes = (nodes, attribute) => {
+const setAttributeNodes = ({ nodes, attribute }) => {
   const keys = Object.keys(nodes);
   for (let i = 0; i < keys.length; i++) {
     const key = keys[i];
@@ -45,7 +45,7 @@ const setAttributeNodes = (nodes, attribute) => {
   }
 };
 
-const removeAttributeNodes = (nodes, attribute) => {
+const removeAttributeNodes = ({ nodes, attribute }) => {
   const keys = Object.keys(nodes);
   for (let i = 0; i < keys.length; i++) {
     const key = keys[i];
@@ -57,25 +57,31 @@ const removeAttributeNodes = (nodes, attribute) => {
 const deactivateMapFiltersForm = () => {
   mapFilters.classList.add('map__filters--disabled');
 
-  setAttributeNodes(filterMapFiltersNodes, { name: Attribute.DISABLED, value: Boolean.TRUE });
+  setAttributeNodes({
+    nodes: filterMapFiltersNodes,
+    attribute: { name: Attribute.DISABLED, value: Boolean.TRUE },
+  });
 };
 
 const deactivateAdForm = () => {
   adForm.classList.add('ad-form--disabled');
 
-  setAttributeNodes(filterAdFormNodes, { name: Attribute.DISABLED, value: Boolean.TRUE });
+  setAttributeNodes({
+    nodes: filterAdFormNodes,
+    attribute: { name: Attribute.DISABLED, value: Boolean.TRUE },
+  });
 };
 
 const activateMapFiltersForm = () => {
   mapFilters.classList.remove('map__filters--disabled');
 
-  removeAttributeNodes(filterMapFiltersNodes, { name: Attribute.DISABLED });
+  removeAttributeNodes({ nodes: filterMapFiltersNodes, attribute: { name: Attribute.DISABLED } });
 };
 
 const activateAdForm = () => {
   adForm.classList.remove('ad-form--disabled');
 
-  removeAttributeNodes(filterAdFormNodes, { name: Attribute.DISABLED });
+  removeAttributeNodes({ nodes: filterAdFormNodes, attribute: { name: Attribute.DISABLED } });
 };
 
 const deactivateForms = () => {
@@ -98,7 +104,7 @@ const unblockSubmitButton = () => {
   submitButton.textContent = 'Сохранить';
 };
 
-const setUserFormSubmit = (onSuccess, onFail) => {
+const setUserFormSubmit = ({ onSuccess, onFail }) => {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
@@ -106,17 +112,18 @@ const setUserFormSubmit = (onSuccess, onFail) => {
     if (isValid) {
       const formData = new FormData(evt.target);
       blockSubmitButton();
-      sendFormData(
-        () => {
+      sendFormData({
+        onSuccess: () => {
           onSuccess();
-          unblockSubmitButton();
         },
-        () => {
+        onFail: () => {
           onFail();
+        },
+        onFinally: () => {
           unblockSubmitButton();
         },
-        formData,
-      );
+        body: formData,
+      });
     }
   });
 };

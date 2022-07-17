@@ -11,8 +11,8 @@ deactivateForms();
 
 renderMap();
 
-setUserFormSubmit(
-  () => {
+setUserFormSubmit({
+  onSuccess: () => {
     document.querySelector('.ad-form').reset();
     map.closePopup();
     map.setView(CITY_CENTER_TOKYO, 14);
@@ -20,7 +20,7 @@ setUserFormSubmit(
     setDefaultSlider();
     showModalSuccess();
   },
-  () => {
+  onFail: () => {
     showModalError();
   },
-);
+});

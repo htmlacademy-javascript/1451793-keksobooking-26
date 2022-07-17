@@ -24,7 +24,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 mainMarker.addTo(map);
 
 mainMarker.on('moveend', (evt) => {
-  address.value = formatCoordinates(evt.target.getLatLng());
+  address.value = formatCoordinates({ objectCoordinates: evt.target.getLatLng() });
 });
 
 const pinIcon = L.icon({
@@ -41,11 +41,7 @@ const renderSimilarOffers = (similarOffers) => {
 };
 
 const renderMap = () => {
-  map
-    .on('load', () => {
-      activateForms();
-    })
-    .setView(CITY_CENTER_TOKYO, 14);
+  map.on('load', activateForms).setView(CITY_CENTER_TOKYO, 14);
 
   getSimilarOffers((offers) => {
     renderSimilarOffers(offers);

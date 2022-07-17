@@ -40,8 +40,10 @@ const setDefaultSlider = () => {
   });
 };
 
-type.addEventListener('change', () => {
+const onChangeType = () => {
   setDefaultSlider();
-});
+};
+
+type.addEventListener('change', onChangeType);
 
 export { setDefaultSlider };

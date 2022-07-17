@@ -19,10 +19,10 @@ const getRandomPositiveFloat = (a, b, digits = 1) => {
 const getRandomArrayElement = (elements) =>
   elements[getRandomPositiveInteger(0, elements.length - 1)];
 
-const formatCoordinates = (objectCoordinates, digits = 5) =>
+const formatCoordinates = ({ objectCoordinates, digits = 5 }) =>
   `${objectCoordinates.lat.toFixed(digits)}, ${objectCoordinates.lng.toFixed(digits)}`;
 
-const showAlert = (message, showTime = 3000) => {
+const showAlert = ({ message, showTime = 3000 }) => {
   const alertContainer = document.createElement('div');
   alertContainer.style.zIndex = '100';
   alertContainer.style.position = 'fixed';

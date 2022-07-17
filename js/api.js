@@ -8,21 +8,27 @@ const getSimilarOffers = (onSuccess) => {
       onSuccess(similarOffers);
     })
     .catch(() => {
-      showAlert('Ошибка загрузки данных');
+      showAlert({ message: 'Ошибка загрузки данных' });
     });
 };
 
-const sendFormData = (onSuccess, onFail, body) => {
-  fetch(`${SERVER_URL}`, { method: 'POST', body })
+const sendFormData = ({ onSuccess, onFail, onFinally, body }) => {
+  fetch(`${SERVER_URL}`, {
+    method: 'POST',
+    body,
+  })
     .then((res) => {
       if (res.ok) {
         onSuccess();
       } else {
-        onFail('Не удалось отправить форму. Попробуйте ещё раз');
+        throw new Error('Не удалось отправить форму. Попробуйте ещё раз');
       }
     })
     .catch(() => {
       onFail('Не удалось отправить форму. Попробуйте ещё раз');
+    })
+    .finally(() => {
+      onFinally();
     });
 };
 

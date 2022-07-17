@@ -1,4 +1,4 @@
-const showModal = (templateSelector, templateContentSelector) => {
+const showModal = ({ templateSelector, templateContentSelector }) => {
   const modalTemplate = document
     .querySelector(templateSelector)
     .content.querySelector(templateContentSelector);
@@ -24,11 +24,11 @@ const showModal = (templateSelector, templateContentSelector) => {
 };
 
 const showModalSuccess = () => {
-  showModal('#success', '.success');
+  showModal({ templateSelector: '#success', templateContentSelector: '.success' });
 };
 
 const showModalError = () => {
-  showModal('#error', '.error');
+  showModal({ templateSelector: '#error', templateContentSelector: '.error' });
 };
 
 export { showModalSuccess, showModalError };
