@@ -1,5 +1,4 @@
 import { HOUSING_PRICE } from './constants.js';
-import { sendFormData } from './api.js';
 
 const adForm = document.querySelector('.ad-form');
 
@@ -32,23 +31,13 @@ const capacityErrorMsg = {
 
 price.placeholder = HOUSING_PRICE.min[type.value];
 
-function validateCapacity(value) {
-  return roomNumberCapacity[roomNumber.value].includes(value);
-}
+const validateCapacity = (value) => roomNumberCapacity[roomNumber.value].includes(value);
+const getCapacityErrorMsg = () => capacityErrorMsg[roomNumber.value];
 
 pristine.addValidator(capacity, validateCapacity, getCapacityErrorMsg);
 
-function validateMinHousingPrice(value) {
-  return HOUSING_PRICE.min[type.value] <= value;
-}
-
-function getMinPriceErrorMsg() {
-  return `Минимальная цена ${HOUSING_PRICE.min[type.value]}`;
-}
-
-function getCapacityErrorMsg() {
-  return capacityErrorMsg[roomNumber.value];
-}
+const validateMinHousingPrice = (value) => HOUSING_PRICE.min[type.value] <= value;
+const getMinPriceErrorMsg = () => `Минимальная цена ${HOUSING_PRICE.min[type.value]}`;
 
 pristine.addValidator(price, validateMinHousingPrice, getMinPriceErrorMsg);
 
@@ -71,16 +60,6 @@ timein.addEventListener('change', () => {
 
 timeout.addEventListener('change', () => {
   timein.value = timeout.value;
-});
-
-adForm.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-
-  const isValid = pristine.validate();
-  if (isValid) {
-    const formData = new FormData(evt.target);
-    sendFormData(formData);
-  }
 });
 
 export { pristine };
