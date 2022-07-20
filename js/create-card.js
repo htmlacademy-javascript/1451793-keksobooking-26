@@ -4,7 +4,7 @@ import { OFFER_TYPES_RUSSIAN } from './constants.js';
 
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 
-function createCard({ offer, author }) {
+const createCard = ({ offer, author }) => {
   const card = cardTemplate.cloneNode(true);
 
   const title = card.querySelector('.popup__title');
@@ -70,6 +70,6 @@ function createCard({ offer, author }) {
   avatar.src = author.avatar;
 
   return card;
-}
+};
 
 export { createCard };

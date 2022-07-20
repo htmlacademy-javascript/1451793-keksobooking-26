@@ -1,6 +1,13 @@
 import { Attribute, Boolean } from './constants.js';
+import { pristine } from './validate-form.js';
+import { sendFormData } from './api.js';
+import { mainMarker, map } from './render-map.js';
+import { CITY_CENTER_TOKYO } from './constants.js';
+import { setDefaultSlider } from './price-slider.js';
 
 const adForm = document.querySelector('.ad-form');
+const submitButton = adForm.querySelector('.ad-form__submit');
+const resetButton = adForm.querySelector('.ad-form__reset');
 
 const filterAdFormNodes = {
   avatar: adForm.querySelector('#avatar'),
@@ -29,56 +36,98 @@ const filterMapFiltersNodes = {
   features: mapFilters.querySelector('#housing-features'),
 };
 
-function setAttributeNodes(nodes, attribute) {
+const setAttributeNodes = ({ nodes, attribute }) => {
   const keys = Object.keys(nodes);
   for (let i = 0; i < keys.length; i++) {
     const key = keys[i];
     const node = nodes[key];
     node.setAttribute(attribute.name, attribute.value);
   }
-}
+};
 
-function removeAttributeNodes(nodes, attribute) {
+const removeAttributeNodes = ({ nodes, attribute }) => {
   const keys = Object.keys(nodes);
   for (let i = 0; i < keys.length; i++) {
     const key = keys[i];
     const node = nodes[key];
     node.removeAttribute(attribute.name);
   }
-}
+};
 
-function deactivateMapFiltersForm() {
+const deactivateMapFiltersForm = () => {
   mapFilters.classList.add('map__filters--disabled');
 
-  setAttributeNodes(filterMapFiltersNodes, { name: Attribute.DISABLED, value: Boolean.TRUE });
-}
+  setAttributeNodes({
+    nodes: filterMapFiltersNodes,
+    attribute: { name: Attribute.DISABLED, value: Boolean.TRUE },
+  });
+};
 
-function deactivateAdForm() {
+const deactivateAdForm = () => {
   adForm.classList.add('ad-form--disabled');
 
-  setAttributeNodes(filterAdFormNodes, { name: Attribute.DISABLED, value: Boolean.TRUE });
-}
+  setAttributeNodes({
+    nodes: filterAdFormNodes,
+    attribute: { name: Attribute.DISABLED, value: Boolean.TRUE },
+  });
+};
 
-function activateMapFiltersForm() {
+const activateMapFiltersForm = () => {
   mapFilters.classList.remove('map__filters--disabled');
 
-  removeAttributeNodes(filterMapFiltersNodes, { name: Attribute.DISABLED });
-}
+  removeAttributeNodes({ nodes: filterMapFiltersNodes, attribute: { name: Attribute.DISABLED } });
+};
 
-function activateAdForm() {
+const activateAdForm = () => {
   adForm.classList.remove('ad-form--disabled');
 
-  removeAttributeNodes(filterAdFormNodes, { name: Attribute.DISABLED });
-}
+  removeAttributeNodes({ nodes: filterAdFormNodes, attribute: { name: Attribute.DISABLED } });
+};
 
-function deactivateForms() {
+const deactivateForms = () => {
   deactivateMapFiltersForm();
   deactivateAdForm();
-}
+};
 
-function activateForms() {
+const activateForms = () => {
   activateMapFiltersForm();
   activateAdForm();
-}
+};
 
-export { deactivateForms, activateForms };
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Сохраняю...';
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Сохранить';
+};
+
+const setUserFormSubmit = ({ onSuccess, onFail }) => {
+  adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    const isValid = pristine.validate();
+    if (isValid) {
+      const formData = new FormData(evt.target);
+      blockSubmitButton();
+      sendFormData({
+        onSuccess,
+        onFail,
+        onFinally: unblockSubmitButton,
+        body: formData,
+      });
+    }
+  });
+};
+
+resetButton.addEventListener('click', () => {
+  adForm.reset();
+  map.closePopup();
+  map.setView(CITY_CENTER_TOKYO, 14);
+  mainMarker.setLatLng(CITY_CENTER_TOKYO);
+  setDefaultSlider();
+});
+
+export { deactivateForms, activateForms, setUserFormSubmit };

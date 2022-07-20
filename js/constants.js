@@ -54,6 +54,8 @@ const HOUSING_PRICE = {
   max: 100000,
 };
 
+const SERVER_URL = 'https://26.javascript.pages.academy/keksobooking';
+
 export {
   OFFERS_COUNT,
   LATITUDE,
@@ -67,4 +69,5 @@ export {
   Boolean,
   CITY_CENTER_TOKYO,
   HOUSING_PRICE,
+  SERVER_URL,
 };

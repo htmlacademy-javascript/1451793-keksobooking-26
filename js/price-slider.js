@@ -28,7 +28,7 @@ priceSlider.noUiSlider.on('update', () => {
   pristine.validate(price);
 });
 
-type.addEventListener('change', () => {
+const setDefaultSlider = () => {
   priceSlider.noUiSlider.updateOptions({
     range: {
       min: HOUSING_PRICE.min[type.value],
@@ -38,4 +38,12 @@ type.addEventListener('change', () => {
     step: 1,
     connect: 'lower',
   });
-});
+};
+
+const onChangeType = () => {
+  setDefaultSlider();
+};
+
+type.addEventListener('change', onChangeType);
+
+export { setDefaultSlider };
