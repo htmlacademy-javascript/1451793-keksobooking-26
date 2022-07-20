@@ -20,7 +20,5 @@ setUserFormSubmit({
     setDefaultSlider();
     showModalSuccess();
   },
-  onFail: () => {
-    showModalError();
-  },
+  onFail: showModalError,
 });

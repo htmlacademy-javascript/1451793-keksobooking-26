@@ -113,15 +113,9 @@ const setUserFormSubmit = ({ onSuccess, onFail }) => {
       const formData = new FormData(evt.target);
       blockSubmitButton();
       sendFormData({
-        onSuccess: () => {
-          onSuccess();
-        },
-        onFail: () => {
-          onFail();
-        },
-        onFinally: () => {
-          unblockSubmitButton();
-        },
+        onSuccess,
+        onFail,
+        onFinally: unblockSubmitButton,
         body: formData,
       });
     }
