@@ -1,4 +1,4 @@
-const OFFERS_COUNT = 10;
+const SIMILAR_OFFERS_COUNT = 10;
 
 const LATITUDE = {
   MIN: 35.65,
@@ -57,7 +57,7 @@ const HOUSING_PRICE = {
 const SERVER_URL = 'https://26.javascript.pages.academy/keksobooking';
 
 export {
-  OFFERS_COUNT,
+  SIMILAR_OFFERS_COUNT,
   LATITUDE,
   LONGITUDE,
   OFFER_TYPES,

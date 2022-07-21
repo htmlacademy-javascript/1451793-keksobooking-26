@@ -1,5 +1,5 @@
 import { activateForms } from './form.js';
-import { CITY_CENTER_TOKYO } from './constants.js';
+import { CITY_CENTER_TOKYO, SIMILAR_OFFERS_COUNT } from './constants.js';
 import { formatCoordinates } from './utils.js';
 import { createCard } from './create-card.js';
 import { getSimilarOffers } from './api.js';
@@ -44,7 +44,7 @@ const renderMap = () => {
   map.on('load', activateForms).setView(CITY_CENTER_TOKYO, 14);
 
   getSimilarOffers((offers) => {
-    renderSimilarOffers(offers);
+    renderSimilarOffers(offers.slice(0, SIMILAR_OFFERS_COUNT));
   });
 };
 
