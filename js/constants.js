@@ -68,6 +68,8 @@ const HOUSING_PRICE = {
   },
 };
 
+const RENDER_DELAY = 500;
+
 const SERVER_URL = 'https://26.javascript.pages.academy/keksobooking';
 
 export {
@@ -84,4 +86,5 @@ export {
   CITY_CENTER_TOKYO,
   HOUSING_PRICE,
   SERVER_URL,
+  RENDER_DELAY,
 };

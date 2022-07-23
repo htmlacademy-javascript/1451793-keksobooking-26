@@ -1,6 +1,7 @@
-import { SIMILAR_OFFERS_COUNT, HOUSING_PRICE } from './constants.js';
+import { SIMILAR_OFFERS_COUNT, HOUSING_PRICE, RENDER_DELAY } from './constants.js';
 import { renderSimilarOffers } from './render-map.js';
 import { markerGroup } from './render-map.js';
+import { debounce } from './utils.js';
 
 const filters = {
   'housing-type': 'any',
@@ -95,7 +96,7 @@ const filterOffers = (offers) => {
     renderSimilarOffers(filteredOffers.slice(0, SIMILAR_OFFERS_COUNT));
   };
 
-  mapFilters.addEventListener('change', onChangeFilter);
+  mapFilters.addEventListener('change', debounce(onChangeFilter), RENDER_DELAY);
 };
 
 export { filterOffers };
