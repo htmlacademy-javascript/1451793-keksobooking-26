@@ -52,6 +52,20 @@ const HOUSING_PRICE = {
     palace: 10000,
   },
   max: 100000,
+  range: {
+    low: {
+      from: 0,
+      to: 10000,
+    },
+    middle: {
+      from: 10000,
+      to: 50000,
+    },
+    high: {
+      from: 50000,
+      to: 100000,
+    },
+  },
 };
 
 const SERVER_URL = 'https://26.javascript.pages.academy/keksobooking';
