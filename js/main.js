@@ -6,7 +6,7 @@ import { CITY_CENTER_TOKYO } from './constants.js';
 import { setDefaultSlider } from './price-slider.js';
 import './validate-form.js';
 import './price-slider.js';
-import './filter.js';
+import './filter-offers.js';
 
 deactivateForms();
 

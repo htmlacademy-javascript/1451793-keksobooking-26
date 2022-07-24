@@ -1,102 +1,51 @@
-import { SIMILAR_OFFERS_COUNT, HOUSING_PRICE, RENDER_DELAY } from './constants.js';
-import { renderSimilarOffers } from './render-map.js';
-import { markerGroup } from './render-map.js';
-import { debounce } from './utils.js';
+import { HOUSING_PRICE } from './constants.js';
 
-const filters = {
-  'housing-type': 'any',
-  'housing-price': 'any',
-  'housing-rooms': 'any',
-  'housing-guests': 'any',
-  'housing-features': [],
-};
-
-const filterOffers = (offers) => {
-  const mapFilters = document.querySelector('.map__filters');
-
-  const filterByType = (offersForFilter, type) => {
-    let filteredByTypeOffers = offersForFilter;
+class Filter {
+  static isMatchByType(offerForCheck, type) {
     if (type !== 'any') {
-      filteredByTypeOffers = offersForFilter.filter((offer) => offer.offer.type === type);
+      return offerForCheck.offer.type === type;
     }
-    return filteredByTypeOffers;
-  };
+    return true;
+  }
 
-  const filterByPrice = (offersForFilter, price) => {
-    let filteredByPriceOffers = offersForFilter;
+  static isMatchByPrice(offerForCheck, price) {
     if (price !== 'any') {
       switch (price) {
         case 'low':
-          filteredByPriceOffers = offersForFilter.filter(
-            (offer) => offer.offer.price < HOUSING_PRICE.range.low.to,
-          );
-          break;
+          return offerForCheck.offer.price < HOUSING_PRICE.range.low.to;
         case 'middle':
-          filteredByPriceOffers = offersForFilter.filter(
-            (offer) =>
-              offer.offer.price >= HOUSING_PRICE.range.middle.from &&
-              offer.offer.price < HOUSING_PRICE.range.middle.to,
-          );
-          break;
-        case 'high':
-          filteredByPriceOffers = offersForFilter.filter(
-            (offer) => offer.offer.price >= HOUSING_PRICE.range.high.from,
+          return (
+            offerForCheck.offer.price >= HOUSING_PRICE.range.middle.from &&
+            offerForCheck.offer.price < HOUSING_PRICE.range.middle.to
           );
 
-          break;
+        case 'high':
+          return offerForCheck.offer.price >= HOUSING_PRICE.range.high.from;
       }
     }
-    return filteredByPriceOffers;
-  };
+    return true;
+  }
 
-  const filterByRooms = (offersForFilter, rooms) => {
-    let filteredByRoomsOffers = offersForFilter;
+  static isMatchByRooms(offerForCheck, rooms) {
     if (rooms !== 'any') {
-      filteredByRoomsOffers = offersForFilter.filter(
-        (offer) => offer.offer.rooms === Number(rooms),
-      );
+      return offerForCheck.offer.rooms === Number(rooms);
     }
-    return filteredByRoomsOffers;
-  };
+    return true;
+  }
 
-  const filterByGuests = (offersForFilter, guests) => {
-    let filteredByGuestsOffers = offersForFilter;
+  static isMatchByGuests(offerForCheck, guests) {
     if (guests !== 'any') {
-      filteredByGuestsOffers = offersForFilter.filter(
-        (offer) => offer.offer.guests === Number(guests),
-      );
+      return offerForCheck.offer.guests === Number(guests);
     }
-    return filteredByGuestsOffers;
-  };
+    return true;
+  }
 
-  const filterByFeatures = (offersForFilter, features) => {
-    let filteredByFeaturesOffers = offersForFilter;
+  static isMatchByFeatures(offerForCheck, features) {
     if (features.length !== 0) {
-      filteredByFeaturesOffers = offersForFilter.filter((offer) =>
-        features.every((feature) => offer.offer.features?.includes(feature)),
-      );
+      return features.every((feature) => offerForCheck.offer.features?.includes(feature));
     }
-    return filteredByFeaturesOffers;
-  };
+    return true;
+  }
+}
 
-  const onChangeFilter = (evt) => {
-    const checkedFeaturesNodes = mapFilters.querySelectorAll('[name=features]:checked');
-    filters['housing-features'] = [];
-    checkedFeaturesNodes.forEach((node) => {
-      filters['housing-features'].push(node.value);
-    });
-    filters[evt.target.name] = evt.target.value;
-    let filteredOffers = offers;
-    filteredOffers = filterByType(filteredOffers, filters['housing-type']);
-    filteredOffers = filterByPrice(filteredOffers, filters['housing-price']);
-    filteredOffers = filterByRooms(filteredOffers, filters['housing-rooms']);
-    filteredOffers = filterByGuests(filteredOffers, filters['housing-guests']);
-    filteredOffers = filterByFeatures(filteredOffers, filters['housing-features']);
-    markerGroup.clearLayers();
-    renderSimilarOffers(filteredOffers.slice(0, SIMILAR_OFFERS_COUNT));
-  };
-
-  mapFilters.addEventListener('change', debounce(onChangeFilter), RENDER_DELAY);
-};
-
-export { filterOffers };
+export { Filter };

@@ -3,7 +3,7 @@ import { CITY_CENTER_TOKYO, SIMILAR_OFFERS_COUNT } from './constants.js';
 import { formatCoordinates } from './utils.js';
 import { createCard } from './create-card.js';
 import { getSimilarOffers } from './api.js';
-import { filterOffers } from './filter.js';
+import { filterOffers } from './filter-offers.js';
 
 const address = document.querySelector('#address');
 
