@@ -44,10 +44,20 @@ const showAlert = ({ message, showTime = 3000 }) => {
   }, showTime);
 };
 
+function debounce(callback, timeoutDelay = 500) {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
 export {
   getRandomPositiveInteger,
   getRandomPositiveFloat,
   getRandomArrayElement,
   formatCoordinates,
   showAlert,
+  debounce,
 };

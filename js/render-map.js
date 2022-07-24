@@ -1,8 +1,9 @@
 import { activateForms } from './form.js';
-import { CITY_CENTER_TOKYO } from './constants.js';
+import { CITY_CENTER_TOKYO, SIMILAR_OFFERS_COUNT } from './constants.js';
 import { formatCoordinates } from './utils.js';
 import { createCard } from './create-card.js';
 import { getSimilarOffers } from './api.js';
+import { filterOffers } from './filter-offers.js';
 
 const address = document.querySelector('#address');
 
@@ -33,10 +34,12 @@ const pinIcon = L.icon({
   iconAnchor: [20, 40],
 });
 
+const markerGroup = L.layerGroup().addTo(map);
+
 const renderSimilarOffers = (similarOffers) => {
   similarOffers.forEach(({ location, offer, author }) => {
     const marker = L.marker({ lat: location.lat, lng: location.lng }, { icon: pinIcon });
-    marker.addTo(map).bindPopup(createCard({ offer, author }));
+    marker.addTo(markerGroup).bindPopup(createCard({ offer, author }));
   });
 };
 
@@ -44,8 +47,9 @@ const renderMap = () => {
   map.on('load', activateForms).setView(CITY_CENTER_TOKYO, 14);
 
   getSimilarOffers((offers) => {
-    renderSimilarOffers(offers);
+    filterOffers(offers);
+    renderSimilarOffers(offers.slice(0, SIMILAR_OFFERS_COUNT));
   });
 };
 
-export { renderMap, mainMarker, map };
+export { renderMap, mainMarker, map, markerGroup, renderSimilarOffers };
