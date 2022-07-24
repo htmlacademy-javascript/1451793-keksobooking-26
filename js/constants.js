@@ -72,6 +72,9 @@ const RENDER_DELAY = 500;
 
 const SERVER_URL = 'https://26.javascript.pages.academy/keksobooking';
 
+const AVATAR_FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+const PHOTO_FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+
 export {
   SIMILAR_OFFERS_COUNT,
   LATITUDE,
@@ -87,4 +90,6 @@ export {
   HOUSING_PRICE,
   SERVER_URL,
   RENDER_DELAY,
+  AVATAR_FILE_TYPES,
+  PHOTO_FILE_TYPES,
 };
