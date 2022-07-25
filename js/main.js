@@ -7,6 +7,8 @@ import { setDefaultSlider } from './price-slider.js';
 import './validate-form.js';
 import './price-slider.js';
 import './filter-offers.js';
+import './avatar.js';
+import './photo.js';
 
 deactivateForms();
 

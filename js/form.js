@@ -11,6 +11,8 @@ const resetButton = adForm.querySelector('.ad-form__reset');
 
 const filterAdFormNodes = {
   avatar: adForm.querySelector('#avatar'),
+  avatarPreview: adForm.querySelector('.ad-form-header__preview img'),
+  photoPreview: adForm.querySelector('.ad-form__photo'),
   title: adForm.querySelector('#title'),
   address: adForm.querySelector('#address'),
   type: adForm.querySelector('#type'),
@@ -124,6 +126,8 @@ const setUserFormSubmit = ({ onSuccess, onFail }) => {
 
 resetButton.addEventListener('click', () => {
   adForm.reset();
+  filterAdFormNodes.avatarPreview.src = 'img/muffin-grey.svg';
+  filterAdFormNodes.photoPreview.innerHTML = '';
   map.closePopup();
   map.setView(CITY_CENTER_TOKYO, 14);
   mainMarker.setLatLng(CITY_CENTER_TOKYO);
