@@ -124,14 +124,23 @@ const setUserFormSubmit = ({ onSuccess, onFail }) => {
   });
 };
 
+const resetAvatarPreview = () => {
+  filterAdFormNodes.avatarPreview.src = 'img/muffin-grey.svg';
+};
+
+const resetPhotoPreview = () => {
+  filterAdFormNodes.photoPreview.innerHTML = '';
+};
+
 resetButton.addEventListener('click', () => {
   adForm.reset();
-  filterAdFormNodes.avatarPreview.src = 'img/muffin-grey.svg';
-  filterAdFormNodes.photoPreview.innerHTML = '';
+  mapFilters.reset();
+  resetAvatarPreview();
+  resetPhotoPreview();
   map.closePopup();
   map.setView(CITY_CENTER_TOKYO, 14);
   mainMarker.setLatLng(CITY_CENTER_TOKYO);
   setDefaultSlider();
 });
 
-export { deactivateForms, activateForms, setUserFormSubmit };
+export { deactivateForms, activateForms, setUserFormSubmit, resetAvatarPreview, resetPhotoPreview };

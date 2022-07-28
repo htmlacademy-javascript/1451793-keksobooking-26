@@ -1,6 +1,6 @@
 import { deactivateForms } from './form.js';
 import { mainMarker, renderMap, map } from './render-map.js';
-import { setUserFormSubmit } from './form.js';
+import { setUserFormSubmit, resetAvatarPreview, resetPhotoPreview } from './form.js';
 import { showModalError, showModalSuccess } from './show-modal.js';
 import { CITY_CENTER_TOKYO } from './constants.js';
 import { setDefaultSlider } from './price-slider.js';
@@ -17,6 +17,9 @@ renderMap();
 setUserFormSubmit({
   onSuccess: () => {
     document.querySelector('.ad-form').reset();
+    document.querySelector('.map__filters').reset();
+    resetAvatarPreview();
+    resetPhotoPreview();
     map.closePopup();
     map.setView(CITY_CENTER_TOKYO, 14);
     mainMarker.setLatLng(CITY_CENTER_TOKYO);

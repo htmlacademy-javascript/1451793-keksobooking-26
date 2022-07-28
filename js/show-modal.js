@@ -4,18 +4,20 @@ const showModal = ({ templateSelector, templateContentSelector }) => {
     .content.querySelector(templateContentSelector);
   const modalElement = modalTemplate.cloneNode(true);
 
+  const closeModal = () => {
+    document.removeEventListener('keydown', onEscPress);
+    document.removeEventListener('click', onMouseClick);
+    modalElement.remove();
+  };
+
   function onEscPress(evt) {
     if (evt.key === 'Escape') {
-      document.removeEventListener('keydown', onEscPress);
-      document.removeEventListener('click', onMouseClick);
-      modalElement.remove();
+      closeModal();
     }
   }
 
   function onMouseClick() {
-    document.removeEventListener('click', onMouseClick);
-    document.removeEventListener('keydown', onEscPress);
-    modalElement.remove();
+    closeModal();
   }
 
   document.addEventListener('keydown', onEscPress);

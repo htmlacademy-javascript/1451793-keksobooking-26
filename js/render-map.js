@@ -44,12 +44,15 @@ const renderSimilarOffers = (similarOffers) => {
 };
 
 const renderMap = () => {
-  map.on('load', activateForms).setView(CITY_CENTER_TOKYO, 14);
-
-  getSimilarOffers((offers) => {
-    filterOffers(offers);
-    renderSimilarOffers(offers.slice(0, SIMILAR_OFFERS_COUNT));
-  });
+  map
+    .on('load', () => {
+      getSimilarOffers((offers) => {
+        filterOffers(offers);
+        renderSimilarOffers(offers.slice(0, SIMILAR_OFFERS_COUNT));
+        activateForms();
+      });
+    })
+    .setView(CITY_CENTER_TOKYO, 14);
 };
 
 export { renderMap, mainMarker, map, markerGroup, renderSimilarOffers };
