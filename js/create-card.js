@@ -1,5 +1,5 @@
-import { Room } from './Room.js';
-import { Guest } from './Guest.js';
+import { Room } from './room.js';
+import { Guest } from './guest.js';
 import { OFFER_TYPES_RUSSIAN } from './constants.js';
 
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
