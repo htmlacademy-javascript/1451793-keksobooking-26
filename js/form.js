@@ -143,4 +143,12 @@ resetButton.addEventListener('click', () => {
   setDefaultSlider();
 });
 
-export { deactivateForms, activateForms, setUserFormSubmit, resetAvatarPreview, resetPhotoPreview };
+export {
+  deactivateForms,
+  activateForms,
+  activateMapFiltersForm,
+  activateAdForm,
+  setUserFormSubmit,
+  resetAvatarPreview,
+  resetPhotoPreview,
+};
